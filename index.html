@@ -42,7 +42,10 @@
   .bg{
     position:absolute;inset:0;z-index:-2;pointer-events:none;
     background:
-      radial-gradient(ellipse 60% 900px at 50% 300px, rgba(255,255,255,.95), transparent 70%),
+      radial-gradient(ellipse 55% 650px at 50% 400px, rgba(255,255,255,.75), transparent 70%),
+      linear-gradient(125deg, rgba(0,50,116,.26) 0px, rgba(2,94,161,.16) 300px, rgba(68,149,209,.07) 640px, transparent 1000px) left top/100% 1700px no-repeat,
+      linear-gradient(235deg, rgba(0,50,116,.26) 0px, rgba(2,94,161,.16) 300px, rgba(68,149,209,.07) 640px, transparent 1000px) right top/100% 1700px no-repeat,
+      linear-gradient(180deg, rgba(68,149,209,.42) 0px, rgba(108,172,228,.26) 700px, rgba(108,172,228,0) 1600px),
       radial-gradient(ellipse 90% 1400px at 15% 45%, rgba(108,172,228,.16), transparent 70%),
       radial-gradient(ellipse 90% 1400px at 85% 70%, rgba(155,165,180,.18), transparent 70%),
       radial-gradient(ellipse 70% 900px at 50% 100%, rgba(108,172,228,.12), transparent 70%),
@@ -54,7 +57,8 @@
     animation:twinkle var(--d,5s) ease-in-out var(--dl,0s) infinite;filter:drop-shadow(0 0 6px rgba(68,149,209,.5))}
   .spark svg{display:block;width:100%;height:100%}
   @keyframes twinkle{0%,100%{opacity:0;transform:scale(.6) rotate(0deg)}45%,55%{opacity:calc(var(--o,.7) + .2);transform:scale(1) rotate(20deg)}}
-  ::selection{background:var(--velvet-hi);color:#fff}
+
+  ::selection{background:#025ea1;color:#fff}
 
   /* ---------- HERO / STAGE ---------- */
   .stage{
@@ -81,7 +85,7 @@
     position:absolute;top:0;height:max(100%,100vh);width:calc(50% + 1px);z-index:3;
     will-change:transform;backface-visibility:hidden;
     background:
-      linear-gradient(180deg, rgba(0,8,30,.3) 0%, transparent 18%),
+      linear-gradient(180deg, rgba(0,8,30,.3) 0%, transparent 18%, transparent 50%, rgba(2,94,161,.35) 75%, rgba(68,149,209,.55) 100%),
       repeating-linear-gradient(90deg,
         var(--velvet-deep) 0px,
         var(--velvet-mid) 14px,
@@ -104,6 +108,14 @@
   .curtain.left::after{right:0;background:linear-gradient(90deg,transparent,rgba(0,8,30,.45))}
   .curtain.right::after{left:0;background:linear-gradient(270deg,transparent,rgba(0,8,30,.45))}
 
+
+
+  /* rounded, drape-like shading on the visible part of side curtains */
+  .curtain::before{content:"";position:absolute;inset:0;pointer-events:none}
+  .curtain.left::before{background:
+      linear-gradient(90deg, transparent 0%, transparent 86%, rgba(0,8,30,.45) 89%, rgba(2,94,161,.0) 91%, rgba(2,94,161,.28) 93%, rgba(68,149,209,.42) 94.8%, rgba(2,94,161,.25) 96.6%, rgba(0,8,30,.22) 98.6%, rgba(0,8,30,.55) 100%)}
+  .curtain.right::before{background:
+      linear-gradient(270deg, transparent 0%, transparent 86%, rgba(0,8,30,.45) 89%, rgba(2,94,161,.0) 91%, rgba(2,94,161,.28) 93%, rgba(68,149,209,.42) 94.8%, rgba(2,94,161,.25) 96.6%, rgba(0,8,30,.22) 98.6%, rgba(0,8,30,.55) 100%)}
   .opened .curtain.left{transform:translateX(-80%) scaleX(.9)}
   .opened .curtain.right{transform:translateX(80%) scaleX(.9)}
 
@@ -111,7 +123,7 @@
   .valance{
     position:absolute;left:0;right:0;top:0;height:58px;z-index:4;
     background:
-      linear-gradient(180deg, rgba(0,8,30,.3) 0%, rgba(0,8,30,.18) 100%),
+      linear-gradient(180deg, rgba(0,8,30,.5) 0%, rgba(0,8,30,.12) 28%, rgba(68,149,209,.14) 46%, rgba(0,8,30,.06) 64%, rgba(0,8,30,.5) 100%),
       repeating-linear-gradient(90deg,
         var(--velvet-deep) 0px,
         var(--velvet-mid) 14px,
@@ -141,8 +153,8 @@
     margin-bottom:clamp(28px,4.5vh,48px);
     color:var(--cream);
   }
-  .logos svg{display:block;height:clamp(56px,min(8vw,9vh),78px);width:auto}
-  .logos .sep{width:1px;height:clamp(48px,7vw,68px);background:var(--line)}
+  .logos svg{display:block;height:clamp(68px,min(9.6vw,11vh),96px);width:auto}
+  .logos .sep{width:1px;height:clamp(56px,8.4vw,82px);background:var(--line)}
 
   .eyebrow{
     font-family:var(--sans);font-weight:500;
@@ -517,7 +529,14 @@
     // плавное появление блоков
     var els = document.querySelectorAll('.reveal');
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setTimeout(startReveal, reduce ? 0 : 2600);
+    var started=false;
+    function go(){ if(started) return; started=true; startReveal(); }
+    if (reduce) { go(); }
+    else {
+      var cur=document.querySelector('.curtain.left');
+      if (cur) cur.addEventListener('transitionend', function(e){ if(e.propertyName==='transform') go(); });
+      setTimeout(go, 3700);
+    }
     function startReveal(){
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function(entries){
