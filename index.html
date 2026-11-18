@@ -78,7 +78,8 @@
 
   /* curtains */
   .curtain{
-    position:absolute;top:0;height:max(100%,100vh);width:52%;z-index:3;
+    position:absolute;top:0;height:max(100%,100vh);width:calc(50% + 1px);z-index:3;
+    will-change:transform;backface-visibility:hidden;
     background:
       linear-gradient(180deg, rgba(0,8,30,.3) 0%, transparent 18%),
       repeating-linear-gradient(90deg,
@@ -92,7 +93,7 @@
     box-shadow:inset 0 0 80px rgba(0,8,30,.5);
     -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 30%,rgba(0,0,0,.85) 50%,rgba(0,0,0,.45) 72%,rgba(0,0,0,.12) 88%,transparent 100%);
             mask-image:linear-gradient(180deg,#000 0%,#000 30%,rgba(0,0,0,.85) 50%,rgba(0,0,0,.45) 72%,rgba(0,0,0,.12) 88%,transparent 100%);
-    transition:transform 1.6s cubic-bezier(.7,0,.2,1);
+    transition:transform 3.2s cubic-bezier(.45,.05,.2,1);
     pointer-events:none;
   }
   .curtain.left{left:0;transform-origin:left center}
@@ -130,7 +131,7 @@
     max-width:640px;width:100%;
     text-align:center;
     opacity:0;transform:translateY(14px);
-    transition:opacity .9s ease .6s, transform .9s ease .6s;
+    transition:opacity 1.2s ease 1.4s, transform 1.2s ease 1.4s;
   }
   .opened .hero{opacity:1;transform:none}
 
@@ -363,11 +364,9 @@
 
     <h1>Квантовый проект:<br><em>итоги 2026</em></h1>
 
-    <svg class="mask" viewBox="0 0 160 56" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
-      <path d="M80 18c-10-9-28-14-48-12C18 7 8 12 4 18c4 16 16 30 34 32 16 2 28-6 34-16 3-4 5-6 8-6s5 2 8 6c6 10 18 18 34 16 18-2 30-16 34-32-4-6-14-11-28-12-20-2-38 3-48 12z"/>
-      <path d="M30 26c6-6 16-7 24-2-6 8-17 10-24 2zM130 26c-6-6-16-7-24-2 6 8 17 10 24 2z"/>
-      <path d="M4 18c-2-6 0-12 6-14M156 18c2-6 0-12-6-14" opacity=".6"/>
-      <circle cx="80" cy="12" r="1.6" fill="currentColor" stroke="none"/>
+    <svg class="mask" viewBox="0 0 160 56" aria-hidden="true">
+      <defs><linearGradient id="maskGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#15256d"/><stop offset=".55" stop-color="#025ea1"/><stop offset="1" stop-color="#4495d1"/></linearGradient></defs>
+      <path fill="url(#maskGrad)" fill-rule="evenodd" d="M80 15c-10-6-28-11-48-9C18 7 8 12 4 18c4 16 16 30 34 32 16 2 28-6 34-16 3-1.2 5-2 8-2s5 .8 8 2c6 10 18 18 34 16 18-2 30-16 34-32-4-6-14-11-28-12-20-2-38 0-48 9z M30 26c6-6 16-7 24-2-6 8-17 10-24 2z M130 26c-6-6-16-7-24-2 6 8 17 10 24 2z"/>
     </svg>
 
     <div class="date">23 декабря 2026
@@ -457,9 +456,9 @@
           </h3>
           <ul>
             <li>Классический костюм глубокого или нейтрального оттенка</li>
-            <li>Светлая рубашка, галстук или бабочка - на ваш вкус</li>
+            <li>Светлая рубашка, к ней галстук или бабочка - на ваш вкус</li>
             <li>Классические туфли, лоферы или оксфорды</li>
-            <li>Идеально дополнят образ аксессуары: запонки, нагрудный платок, часы</li>
+            <li>По желанию образ можно дополнить аксессуарами: запонками, нагрудным платком, часами</li>
           </ul>
         </div>
       </div>
@@ -513,12 +512,12 @@
     });
 
     // занавес открывается
-    requestAnimationFrame(function(){ setTimeout(function(){ document.body.classList.add('opened'); }, 100); });
+    requestAnimationFrame(function(){ setTimeout(function(){ document.body.classList.add('opened'); }, 200); });
 
     // плавное появление блоков
     var els = document.querySelectorAll('.reveal');
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setTimeout(startReveal, reduce ? 0 : 1300);
+    setTimeout(startReveal, reduce ? 0 : 2600);
     function startReveal(){
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function(entries){
