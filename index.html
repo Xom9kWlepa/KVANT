@@ -274,19 +274,7 @@
   .dress .code{
     font-family:var(--serif);font-style:italic;font-size:clamp(48px,7vw,76px);line-height:1.1;margin:4px 0 14px;display:inline-block;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-right:.08em;
   }
-  .dress .lead{max-width:540px;margin:0 auto clamp(28px,4vw,40px);color:var(--muted);font-size:16px}
-  .dress-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,28px);text-align:left}
-  .dress-card{
-    border:1px solid var(--line);border-radius:4px;padding:clamp(22px,3vw,30px);
-    background:rgba(255,255,255,.6);box-shadow:0 10px 30px -18px rgba(0,50,116,.25);
-  }
-  .dress-card h3{
-    font-family:var(--serif);font-weight:500;font-size:24px;margin-bottom:12px;display:flex;align-items:center;gap:14px;
-  }
-  .dress-card h3 svg{width:30px;height:30px;color:var(--gold);flex:none}
-  .dress-card ul{list-style:none}
-  .dress-card li{position:relative;padding-left:22px;margin-bottom:8px;font-size:15px;line-height:1.55}
-  .dress-card li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:1px;background:var(--gold)}
+  .dress .lead{max-width:540px;margin:0 auto;color:var(--muted);font-size:16px}
 
   .palette{margin-top:clamp(36px,5vw,52px)}
   .swatches{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(18px,3vw,30px);margin-top:20px}
@@ -331,7 +319,6 @@
   @media (max-width:860px){
     .cards{grid-template-columns:1fr}
     .card + .card{border-left:0;border-top:1px solid var(--line)}
-    .dress-grid{grid-template-columns:1fr}
   }
   @media (max-width:560px){
     .spark.l{left:2.5%!important}
@@ -447,33 +434,6 @@
       <div class="reveal"><span class="label">Дресс-код</span></div>
       <div class="code reveal">Cocktail</div>
       <p class="lead reveal">Коктейльный (cocktail) дресс-код - это нарядно, но без строгости вечернего протокола. Элегантный образ, в котором приятно и подвести итоги года, и провести вечер.</p>
-
-      <div class="dress-grid">
-        <div class="dress-card reveal">
-          <h3>
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12.5 3.5l1.3 6M19.5 3.5l-1.3 6"/><path d="M13.8 9.5c-.4 2.4.6 4.3-.3 6.5h5c-.9-2.2.1-4.1-.3-6.5-.8.7-1.5 1-2.2 1s-1.4-.3-2.2-1z"/><path d="M13.5 16L8 27.5c5.3 1.6 10.7 1.6 16 0L18.5 16"/></svg>
-            Для дам
-          </h3>
-          <ul>
-            <li>Коктейльное платье длиной до колена или миди</li>
-            <li>Или элегантный брючный костюм, комбинезон, юбка с блузой</li>
-            <li>Туфли на каблуке или изящные лодочки</li>
-            <li>Аккуратные украшения и небольшой клатч</li>
-          </ul>
-        </div>
-        <div class="dress-card reveal">
-          <h3>
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M11 5l5 6 5-6M16 11l-2.5 4 2.5 12 2.5-12z"/><path d="M11 5L6 9v18h20V9l-5-4"/></svg>
-            Для джентльменов
-          </h3>
-          <ul>
-            <li>Классический костюм глубокого или нейтрального оттенка</li>
-            <li>Светлая рубашка, к ней галстук или бабочка - на ваш вкус</li>
-            <li>Классические туфли, лоферы или оксфорды</li>
-            <li>По желанию образ можно дополнить аксессуарами: запонками, нагрудным платком, часами</li>
-          </ul>
-        </div>
-      </div>
 
     </div>
   </section>
